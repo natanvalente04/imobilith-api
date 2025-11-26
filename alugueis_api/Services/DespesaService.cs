@@ -1,16 +1,20 @@
 ﻿using alugueis_api.Interfaces;
 using alugueis_api.Models;
 using alugueis_api.NovaPasta;
+using alugueis_api.Repositories;
 
 namespace alugueis_api.Services
 {
     public class DespesaService : IDespesaService
     {
         private readonly DespesaRepository _DespesaRepository;
+        private readonly AptoRepository _AptoRepository;
 
-        public DespesaService(DespesaRepository despesaRepository)
+
+        public DespesaService(DespesaRepository despesaRepository, AptoRepository aptoRepository)
         {
             _DespesaRepository = despesaRepository;
+            _AptoRepository = aptoRepository;
         }
 
         public async Task<Despesa> ObterDespesaCompletaAsync(int codDespesa)
@@ -20,8 +24,10 @@ namespace alugueis_api.Services
             return despesa;
         }
 
-        public async Task RecalculaRateiosDespesaAsync(Despesa despesa, List<Apto> aptos)
+        public async Task RecalculaRateiosDespesaAsync(int codDespesa)
         {
+            Despesa despesa = await ObterDespesaCompletaAsync(codDespesa);
+            List<Apto> aptos = await _AptoRepository.GetAptos();
             RemoveRateiosDespesaAsync(despesa);
             RateiaDespesa(despesa, aptos);
             await _DespesaRepository.SaveChangesAsync();
