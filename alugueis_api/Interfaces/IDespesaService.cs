@@ -7,6 +7,7 @@ namespace alugueis_api.Interfaces
         void RemoveRateiosDespesaAsync(Despesa despesa);
         Task RemoveDespesaAsync(Despesa despesa);
         Task<Despesa> ObterDespesaCompletaAsync(int codDespesa);
+        Task RecalcularRateiosDespesasAsync(List<int> codDespesas);
         Task RecalculaRateiosDespesaAsync(int codDespesa);
         void RateiaDespesa(Despesa despesa, List<Apto> aptos);
     }

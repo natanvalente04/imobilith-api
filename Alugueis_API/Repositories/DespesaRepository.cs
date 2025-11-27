@@ -62,6 +62,18 @@ namespace alugueis_api.NovaPasta
 
             return despesas;
         }
+
+        public async Task<List<int>> GetCodDespesasRecalcular(int codApto)
+        {
+            return await _AppDbContext.DespesaRateios
+                .Include(dr => dr.Despesa)
+                    .ThenInclude(d => d.TipoDespesa)
+                .Where(dr => dr.CodApto == codApto)
+                .Where(dr => dr.Despesa.TipoDespesa.Compartilhado == 1)
+                .Select(dr => dr.CodDespesa)
+            .Distinct()
+                .ToListAsync();
+        }
         public async Task SaveChangesAsync()
         {
             await _AppDbContext.SaveChangesAsync();

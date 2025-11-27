@@ -12,7 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<DespesaRepository>();
 builder.Services.AddScoped<AptoRepository>();
 builder.Services.AddScoped<IDespesaService, DespesaService>();
-builder.Services.AddScoped<RecalculationDespesaRateioHandler>();
 builder.Services.AddScoped<AddDespesaAptoHandler>();
 builder.Services.AddScoped<UpdateDespesaAptoHandler>();
 builder.Services.AddScoped<DeleteDespesaAptoHandler>();

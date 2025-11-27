@@ -23,7 +23,13 @@ namespace alugueis_api.Services
             await _DespesaRepository.GetDespesaRateios(despesa);
             return despesa;
         }
-
+        public async Task RecalcularRateiosDespesasAsync(List<int> codDespesas)
+        {
+            foreach (int codDespesa in codDespesas) 
+            {
+                await RecalculaRateiosDespesaAsync(codDespesa);
+            }
+        }
         public async Task RecalculaRateiosDespesaAsync(int codDespesa)
         {
             Despesa despesa = await ObterDespesaCompletaAsync(codDespesa);

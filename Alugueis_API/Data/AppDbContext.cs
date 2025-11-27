@@ -14,6 +14,8 @@ namespace alugueis_api.Data
         public DbSet<TipoDespesa> TiposDespesa { get; set; }
         public DbSet<Despesa> Despesas { get; set; }
         public DbSet<DespesaRateio> DespesaRateios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Pessoa> Pessoa { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +24,20 @@ namespace alugueis_api.Data
 
             modelBuilder.Entity<Apto>()
                 .HasKey(a => a.CodApto);
+
+            modelBuilder.Entity<Pessoa>()
+                .HasKey(p => p.CodPessoa);
+
+
+
+            modelBuilder.Entity<Usuario>()
+                .HasKey(u => u.CodUsuario);
+
+            modelBuilder.Entity<Usuario>()
+                .HasOne(u => u.Pessoa)
+                .WithOne(p => p.Usuario)
+                .HasForeignKey<Usuario>(u => u.CodPessoa);
+
 
             modelBuilder.Entity<Apto>()
                 .Property(a => a.CodApto)
