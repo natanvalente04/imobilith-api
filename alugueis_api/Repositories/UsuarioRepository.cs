@@ -14,7 +14,7 @@ namespace alugueis_api.Repositories
             _AppDbContext = appDbContext;
         }
 
-        public void AddAsync(Usuario usuario)
+        public void Add(Usuario usuario)
         {
             _AppDbContext.Usuarios.Add(usuario);
         }
@@ -30,7 +30,7 @@ namespace alugueis_api.Repositories
             return usuario;
         }
 
-        public void RemoveAsync(Usuario usuario)
+        public void Remove(Usuario usuario)
         {
             _AppDbContext.Usuarios.Remove(usuario);
         }

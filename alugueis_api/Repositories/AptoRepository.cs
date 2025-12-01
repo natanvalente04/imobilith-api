@@ -13,7 +13,7 @@ namespace alugueis_api.Repositories
             _AppDbContext = appDbContext;
         }
 
-        public void AddAsync(Apto apto)
+        public void Add(Apto apto)
         {
             _AppDbContext.Aptos.Add(apto);
         }
@@ -45,7 +45,7 @@ namespace alugueis_api.Repositories
             return apto;
         }
 
-        public void RemoveAsync(Apto apto)
+        public void Remove(Apto apto)
         {
             _AppDbContext.Aptos.Remove(apto);
         }
