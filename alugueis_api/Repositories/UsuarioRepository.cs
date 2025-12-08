@@ -35,6 +35,11 @@ namespace alugueis_api.Repositories
             _AppDbContext.Usuarios.Remove(usuario);
         }
 
+        public void Update(Usuario usuario, Usuario usuarioAtualizado)
+        {
+            _AppDbContext.Entry(usuario).CurrentValues.SetValues(usuarioAtualizado);
+        }
+
         public async Task SaveChangesAsync()
         {
            await _AppDbContext.SaveChangesAsync();

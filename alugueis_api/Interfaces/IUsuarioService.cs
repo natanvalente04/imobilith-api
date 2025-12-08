@@ -1,12 +1,13 @@
 ﻿using alugueis_api.Models;
 using alugueis_api.Models.DTOs;
+using alugueis_api.Repositories;
 
 namespace alugueis_api.Interfaces
 {
     public interface IUsuarioService
     {
-        Task AddUsuarioAsync(AddUsuarioAdminDTO dto);
+        Task AddUsuarioAsync(UsuarioDTO dto);
         Task RemoveUsuarioAsync(Usuario usuario);
-        Task UpdateUsuarioAsync();
+        Task UpdateUsuarioAsync(UsuarioDTO dto);
     }
 }

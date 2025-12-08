@@ -15,7 +15,14 @@ namespace alugueis_api.Services
             _UsuarioRepository = usuarioRepository;
         }
 
-        public async Task AddUsuarioAsync(AddUsuarioAdminDTO dto)
+        public async Task AddUsuarioAsync(UsuarioDTO dto)
+        {
+            Usuario usuario = CreateUsuario(dto);
+            _UsuarioRepository.Add(usuario);
+            await _UsuarioRepository.SaveChangesAsync();
+        }
+
+        public Usuario CreateUsuario(UsuarioDTO dto)
         {
             PasswordHelper.CriarSenhaHash(dto.Senha, out byte[] Hash, out byte[] salt);
             Usuario usuario = new Usuario
@@ -27,18 +34,23 @@ namespace alugueis_api.Services
                 SenhaSalt = salt,
                 Role = dto.Role,
             };
-            _UsuarioRepository.Add(usuario);
+            return usuario;
+        }
+
+        public async Task RemoveUsuarioAsync(Usuario usuario)
+        {
+            _UsuarioRepository.Remove(usuario);
             await _UsuarioRepository.SaveChangesAsync();
         }
 
-        public Task RemoveUsuarioAsync(Usuario usuario)
+        public async Task UpdateUsuarioAsync(UsuarioDTO dto)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateUsuarioAsync()
-        {
-            throw new NotImplementedException();
+            Usuario usuario = await _UsuarioRepository.GetAsync(dto.CodUsuario);
+            Usuario usuarioAtualizado = CreateUsuario(dto);
+            if (usuario == null) return;
+            if (usuario == null) return;
+            _UsuarioRepository.Update(usuario, usuarioAtualizado);
+            await _UsuarioRepository.SaveChangesAsync();
         }
     }
 }
