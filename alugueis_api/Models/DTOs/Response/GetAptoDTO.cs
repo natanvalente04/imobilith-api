@@ -1,4 +1,4 @@
-﻿namespace alugueis_api.Models.DTOs
+﻿namespace alugueis_api.Models.DTOs.Response
 {
     public class GetAptoDTO
     {

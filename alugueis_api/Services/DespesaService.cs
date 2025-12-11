@@ -19,7 +19,7 @@ namespace alugueis_api.Services
 
         public async Task<Despesa> ObterDespesaCompletaAsync(int codDespesa)
         {
-            Despesa despesa = await _DespesaRepository.GetDespesaById(codDespesa);
+            Despesa despesa = await _DespesaRepository.GetAsync(codDespesa);
             await _DespesaRepository.GetDespesaRateios(despesa);
             return despesa;
         }

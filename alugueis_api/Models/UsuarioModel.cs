@@ -10,6 +10,7 @@
     {
         public int CodUsuario {  get; set; }
         public int CodPessoa { get; set; }
+        public string Email { get; set; }
         public Role Role { get; set; }
         public byte[] SenhaHash { get; set; }
         public byte[] SenhaSalt { get; set; }

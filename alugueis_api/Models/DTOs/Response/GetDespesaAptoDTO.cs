@@ -1,4 +1,4 @@
-﻿namespace alugueis_api.Models.DTOs
+﻿namespace alugueis_api.Models.DTOs.Response
 {
     public class GetDespesaAptoDTO
     {
@@ -10,7 +10,7 @@
         public DateTime CompetenciaMes { get; set; }
         public int Compartilhado { get; set; }
 
-        public GetDespesaAptoDTO(int codDespesa, int codTipoDespesa, string nomeTipoDespesa, float vlrTotalDespesa, DateTime dataDespesa, DateTime competenciaMes, int compartilhado) 
+        public GetDespesaAptoDTO(int codDespesa, int codTipoDespesa, string nomeTipoDespesa, float vlrTotalDespesa, DateTime dataDespesa, DateTime competenciaMes, int compartilhado)
         {
             CodDespesa = codDespesa;
             CodTipoDespesa = codTipoDespesa;

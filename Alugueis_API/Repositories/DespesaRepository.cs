@@ -1,11 +1,12 @@
 ﻿using alugueis_api.Data;
+using alugueis_api.Interfaces;
 using alugueis_api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Writers;
 
 namespace alugueis_api.NovaPasta
 {
-    public class DespesaRepository
+    public class DespesaRepository : IBaseRepository<Despesa>
     {
         private readonly AppDbContext _AppDbContext;
 
@@ -13,11 +14,38 @@ namespace alugueis_api.NovaPasta
         {
             _AppDbContext = appDbContext;
         }
-
-        public async Task<Despesa> GetDespesaById(int? codDespesa)
+        public async Task SaveChangesAsync()
         {
-            Despesa despesa = await _AppDbContext.Despesas.FindAsync(codDespesa);
+            await _AppDbContext.SaveChangesAsync();
+        }
+        public void Add(Despesa despesa)
+        {
+            _AppDbContext.Despesas.Add(despesa);
+        }
+        public void Remove(Despesa despesa)
+        {
+            _AppDbContext.Despesas.Remove(despesa);
+        }
+        public void Update(Despesa entity, Despesa updatedEntity)
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<Despesa> GetAsync(int? id)
+        {
+            Despesa despesa = await _AppDbContext.Despesas.FindAsync(id);
             return despesa;
+        }
+        public async Task<List<Despesa>> GetAllAsync()
+        {
+            return await _AppDbContext.Despesas.ToListAsync();
+        }
+        public void RemoveRateio(DespesaRateio despesaRateio)
+        {
+            _AppDbContext.DespesaRateios.Remove(despesaRateio);
+        }
+        public void AddRateio(DespesaRateio despesaRateio)
+        {
+            _AppDbContext.DespesaRateios.Add(despesaRateio);
         }
         private async Task<DespesaRateio> GetDespesaRateioById(int codDespesaRateio)
         {
@@ -32,7 +60,6 @@ namespace alugueis_api.NovaPasta
         {
             await _AppDbContext.Entry(despesa).Reference(d => d.TipoDespesa).LoadAsync();
         }
-
         public async Task GetTipoDespesaDespesas(List<Despesa> despesas)
         {
 
@@ -53,16 +80,15 @@ namespace alugueis_api.NovaPasta
 
             if (codDespesa == 0 || codDespesa == null)
             {
-                despesas = await _AppDbContext.Despesas.ToListAsync();
+                despesas = await GetAllAsync();
             }
             else
             {
-                despesas.Add(await GetDespesaById(codDespesa));
+                despesas.Add(await GetAsync(codDespesa));
             }
 
             return despesas;
         }
-
         public async Task<List<int>> GetCodDespesasRecalcular(int codApto)
         {
             return await _AppDbContext.DespesaRateios
@@ -73,30 +99,6 @@ namespace alugueis_api.NovaPasta
                 .Select(dr => dr.CodDespesa)
             .Distinct()
                 .ToListAsync();
-        }
-        public async Task SaveChangesAsync()
-        {
-            await _AppDbContext.SaveChangesAsync();
-        }
-
-        public void Add(Despesa despesa)
-        {
-            _AppDbContext.Despesas.Add(despesa);
-        }
-
-        public void AddRateio(DespesaRateio despesaRateio)
-        {
-            _AppDbContext.DespesaRateios.Add(despesaRateio);
-        }
-
-        public void Remove(Despesa despesa)
-        {
-            _AppDbContext.Despesas.Remove(despesa);
-        }
-
-        public void RemoveRateio(DespesaRateio despesaRateio)
-        {
-            _AppDbContext.DespesaRateios.Remove(despesaRateio);
         }
     }
 }

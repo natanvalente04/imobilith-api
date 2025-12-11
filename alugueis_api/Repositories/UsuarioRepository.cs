@@ -29,15 +29,19 @@ namespace alugueis_api.Repositories
             Usuario usuario = await _AppDbContext.Usuarios.FindAsync(codUsuario);
             return usuario;
         }
+        public async Task<Usuario> GetByLoginAsync(string login)
+        {
+            return await _AppDbContext.Usuarios.Where(usuario => usuario.Email == login).FirstAsync();
+        }
 
         public void Remove(Usuario usuario)
         {
             _AppDbContext.Usuarios.Remove(usuario);
         }
 
-        public void Update(Usuario usuario, Usuario usuarioAtualizado)
+        public void Update(Usuario entity, Usuario updatedEntity)
         {
-            _AppDbContext.Entry(usuario).CurrentValues.SetValues(usuarioAtualizado);
+            _AppDbContext.Entry(entity).CurrentValues.SetValues(updatedEntity);
         }
 
         public async Task SaveChangesAsync()

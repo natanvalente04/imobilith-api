@@ -1,7 +1,8 @@
 ﻿using alugueis_api.Data;
 using alugueis_api.Handlers;
 using alugueis_api.Models;
-using alugueis_api.Models.DTOs;
+using alugueis_api.Models.DTOs.Request;
+using alugueis_api.Models.DTOs.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

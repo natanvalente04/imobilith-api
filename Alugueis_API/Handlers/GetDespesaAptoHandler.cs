@@ -1,6 +1,6 @@
 ﻿using alugueis_api.Data;
 using alugueis_api.Models;
-using alugueis_api.Models.DTOs;
+using alugueis_api.Models.DTOs.Response;
 using alugueis_api.NovaPasta;
 using Microsoft.AspNetCore.Mvc;
 

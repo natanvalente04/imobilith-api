@@ -15,12 +15,12 @@ namespace alugueis_api.Data
         public DbSet<Despesa> Despesas { get; set; }
         public DbSet<DespesaRateio> DespesaRateios { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Pessoa> Pessoa { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Locatario>()
-                .HasKey(l => l.Cpf );
+                .HasKey(l => l.CodLocatario);
 
             modelBuilder.Entity<Apto>()
                 .HasKey(a => a.CodApto);

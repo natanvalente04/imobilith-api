@@ -26,7 +26,7 @@ namespace alugueis_api.Handlers
             Apto apto = await _AptoRepository.GetAsync(codApto);
             if (apto == null) return new OkObjectResult(null);
             List<int> codDespesas = await _DespesaRepository.GetCodDespesasRecalcular(codApto);
-            _AptoRepository.RemoveAsync(apto);
+            _AptoRepository.Remove(apto);
             await _AptoRepository.SaveChangesAsync();
             await _DespesaService.RecalcularRateiosDespesasAsync(codDespesas);
             return new OkObjectResult(null);

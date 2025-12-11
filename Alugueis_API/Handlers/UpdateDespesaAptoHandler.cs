@@ -1,6 +1,7 @@
 ﻿using alugueis_api.Data;
 using alugueis_api.Models;
-using alugueis_api.Models.DTOs;
+using alugueis_api.Models.DTOs.Request;
+using alugueis_api.Models.DTOs.Response;
 using alugueis_api.NovaPasta;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ namespace alugueis_api.Handlers
 
         public async Task<IActionResult> Handle(AddDespesaAptoDTO dto)
         {
-            Despesa despesa = await _DespesaRepository.GetDespesaById(dto.CodDespesa);
+            Despesa despesa = await _DespesaRepository.GetAsync(dto.CodDespesa);
             await _DespesaRepository.GetDespesaRateios(despesa);
             await _DespesaRepository.GetTipoDespesaDespesa(despesa);
             UpdateDespesa(despesa, dto);

@@ -54,5 +54,10 @@ namespace alugueis_api.Repositories
         {
             await _AppDbContext.SaveChangesAsync();
         }
+
+        public void Update(Apto entity, Apto updatedEntity)
+        {
+            _AppDbContext.Entry(entity).CurrentValues.SetValues(updatedEntity);
+        }
     }
 }
