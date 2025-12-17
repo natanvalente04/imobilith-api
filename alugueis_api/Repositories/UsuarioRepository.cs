@@ -1,9 +1,9 @@
-﻿using alugueis_api.Data;
-using alugueis_api.Interfaces;
-using alugueis_api.Models;
+﻿using Alugueis_API.Data;
+using Alugueis_API.Interfaces;
+using Alugueis_API.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace alugueis_api.Repositories
+namespace Alugueis_API.Repositories
 {
     public class UsuarioRepository : IBaseRepository<Usuario>
     {
@@ -29,10 +29,6 @@ namespace alugueis_api.Repositories
             Usuario usuario = await _AppDbContext.Usuarios.FindAsync(codUsuario);
             return usuario;
         }
-        public async Task<Usuario> GetByLoginAsync(string login)
-        {
-            return await _AppDbContext.Usuarios.Where(usuario => usuario.Email == login).FirstAsync();
-        }
 
         public void Remove(Usuario usuario)
         {
@@ -47,6 +43,27 @@ namespace alugueis_api.Repositories
         public async Task SaveChangesAsync()
         {
            await _AppDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Usuario> GetByLoginAsync(string login)
+        {
+            return await _AppDbContext.Usuarios.Where(usuario => usuario.Email == login).FirstAsync();
+        }
+
+        public async Task<List<Usuario>> GetUsuarios(int? codUsuario = 0)
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+
+            if (codUsuario == 0 || codUsuario == null)
+            {
+                usuarios = await GetAllAsync();
+            }
+            else
+            {
+                usuarios.Add(await GetAsync(codUsuario));
+            }
+
+            return usuarios;
         }
     }
 }

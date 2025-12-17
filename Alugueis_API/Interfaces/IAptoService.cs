@@ -1,4 +1,4 @@
-﻿namespace alugueis_api.Interfaces
+﻿namespace Alugueis_API.Interfaces
 {
     public interface IAptoService
     {

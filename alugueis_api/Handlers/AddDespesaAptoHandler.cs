@@ -1,13 +1,13 @@
-﻿using alugueis_api.Data;
-using alugueis_api.Models;
-using alugueis_api.Models.DTOs.Request;
-using alugueis_api.Models.DTOs.Response;
-using alugueis_api.NovaPasta;
-using alugueis_api.Repositories;
+﻿using Alugueis_API.Data;
+using Alugueis_API.Models;
+using Alugueis_API.Models.DTOs.Request;
+using Alugueis_API.Models.DTOs.Response;
+using Alugueis_API.NovaPasta;
+using Alugueis_API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace alugueis_api.Handlers
+namespace Alugueis_API.Handlers
 {
     public class AddDespesaAptoHandler
     {

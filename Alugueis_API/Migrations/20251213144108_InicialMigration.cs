@@ -6,25 +6,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Alugueis_API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InicialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Locatarios",
+                name: "Pessoas",
                 columns: table => new
                 {
-                    Cpf = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Idade = table.Column<int>(type: "int", nullable: false),
-                    TemPet = table.Column<int>(type: "int", nullable: false),
-                    QtdDependentes = table.Column<int>(type: "int", nullable: false),
-                    NomeLocatario = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EnderecoUltimoImovel = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CodPessoa = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomePessoa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rg = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EstadoCivil = table.Column<int>(type: "int", nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Locatarios", x => x.Cpf);
+                    table.PrimaryKey("PK_Pessoas", x => x.CodPessoa);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,6 +61,52 @@ namespace Alugueis_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Locatarios",
+                columns: table => new
+                {
+                    CodLocatario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Idade = table.Column<int>(type: "int", nullable: false),
+                    TemPet = table.Column<int>(type: "int", nullable: false),
+                    CodPessoa = table.Column<int>(type: "int", nullable: false),
+                    QtdDependentes = table.Column<int>(type: "int", nullable: false),
+                    PessoaCodPessoa = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locatarios", x => x.CodLocatario);
+                    table.ForeignKey(
+                        name: "FK_Locatarios_Pessoas_PessoaCodPessoa",
+                        column: x => x.PessoaCodPessoa,
+                        principalTable: "Pessoas",
+                        principalColumn: "CodPessoa");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    CodUsuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodPessoa = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    SenhaHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    SenhaSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.CodUsuario);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Pessoas_CodPessoa",
+                        column: x => x.CodPessoa,
+                        principalTable: "Pessoas",
+                        principalColumn: "CodPessoa",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Aptos",
                 columns: table => new
                 {
@@ -85,7 +135,7 @@ namespace Alugueis_API.Migrations
                     CodDespesa = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CodTipoDespesa = table.Column<int>(type: "int", nullable: false),
-                    VrlTotalDespesa = table.Column<double>(type: "float", nullable: false),
+                    VrlTotalDespesa = table.Column<float>(type: "real", nullable: false),
                     DataDespesa = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompetenciaMes = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -107,7 +157,7 @@ namespace Alugueis_API.Migrations
                     CodLocacao = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CodApto = table.Column<int>(type: "int", nullable: false),
-                    Cpf = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    codLocatario = table.Column<int>(type: "int", nullable: false),
                     VlrAluguel = table.Column<float>(type: "real", nullable: false),
                     VlrCausao = table.Column<float>(type: "real", nullable: false),
                     DataIncio = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -123,10 +173,11 @@ namespace Alugueis_API.Migrations
                         principalColumn: "CodApto",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Locacoes_Locatarios_Cpf",
-                        column: x => x.Cpf,
+                        name: "FK_Locacoes_Locatarios_codLocatario",
+                        column: x => x.codLocatario,
                         principalTable: "Locatarios",
-                        principalColumn: "Cpf");
+                        principalColumn: "CodLocatario",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -135,7 +186,7 @@ namespace Alugueis_API.Migrations
                 {
                     CodDespesa = table.Column<int>(type: "int", nullable: false),
                     CodApto = table.Column<int>(type: "int", nullable: false),
-                    VlrRateio = table.Column<double>(type: "float", nullable: false)
+                    VlrRateio = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -175,9 +226,20 @@ namespace Alugueis_API.Migrations
                 column: "CodApto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Locacoes_Cpf",
+                name: "IX_Locacoes_codLocatario",
                 table: "Locacoes",
-                column: "Cpf");
+                column: "codLocatario");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locatarios_PessoaCodPessoa",
+                table: "Locatarios",
+                column: "PessoaCodPessoa");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_CodPessoa",
+                table: "Usuarios",
+                column: "CodPessoa",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -188,6 +250,9 @@ namespace Alugueis_API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Locacoes");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Despesas");
@@ -203,6 +268,9 @@ namespace Alugueis_API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Predios");
+
+            migrationBuilder.DropTable(
+                name: "Pessoas");
         }
     }
 }

@@ -1,13 +1,14 @@
-﻿using alugueis_api.Data;
-using alugueis_api.Handlers;
-using alugueis_api.Models;
-using alugueis_api.Models.DTOs.Response;
-using alugueis_api.Repositories;
+﻿using Alugueis_API.Data;
+using Alugueis_API.Handlers;
+using Alugueis_API.Models;
+using Alugueis_API.Models.DTOs.Response;
+using Alugueis_API.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace alugueis_api.Controllers
+namespace Alugueis_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,6 +26,7 @@ namespace alugueis_api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddAptos(Apto apto)
         {
             _AppDbContext.Aptos.Add(apto);
@@ -46,6 +48,7 @@ namespace alugueis_api.Controllers
             return Ok(aptoDTO);
         }
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<GetAptoDTO>>> GetAptos()
         {
             List<GetAptoDTO> aptos = await _AppDbContext.Aptos
@@ -64,6 +67,7 @@ namespace alugueis_api.Controllers
             return Ok(aptos);
         }
         [HttpGet("{codApto}")]
+        [Authorize]
         public async Task<ActionResult<Apto>>GetAptoById(int codApto)
         {
             Apto apto = await _AppDbContext.Aptos.FindAsync(codApto);
@@ -71,6 +75,7 @@ namespace alugueis_api.Controllers
             return Ok(apto);
         }
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult>UpdateApto([FromBody] Apto aptoAtualizado)
         {
             Apto aptoAtual = await _AppDbContext.Aptos.FindAsync(aptoAtualizado.CodApto);
@@ -80,6 +85,7 @@ namespace alugueis_api.Controllers
             return Ok(aptoAtual);
         }
         [HttpDelete("{codApto}")]
+        [Authorize]
         public async Task<IActionResult>DeleteApto(int codApto)
         {
             return await _DeleteAptoHandler.Handle(codApto);

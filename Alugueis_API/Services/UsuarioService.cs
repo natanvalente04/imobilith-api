@@ -1,14 +1,14 @@
-﻿using alugueis_api.Interfaces;
-using alugueis_api.Interfaces.Security;
-using alugueis_api.Models;
-using alugueis_api.Models.DTOs;
-using alugueis_api.Models.DTOs.Request;
-using alugueis_api.Models.DTOs.Response;
-using alugueis_api.Repositories;
-using alugueis_api.Utilities;
+﻿using Alugueis_API.Interfaces;
+using Alugueis_API.Interfaces.Security;
+using Alugueis_API.Models;
+using Alugueis_API.Models.DTOs;
+using Alugueis_API.Models.DTOs.Request;
+using Alugueis_API.Models.DTOs.Response;
+using Alugueis_API.Repositories;
+using Alugueis_API.Utilities;
 using Microsoft.AspNetCore.Identity;
 
-namespace alugueis_api.Services
+namespace Alugueis_API.Services
 {
     public class UsuarioService : IUsuarioService
     {
@@ -20,11 +20,12 @@ namespace alugueis_api.Services
             _GerenciadorToken = gerenciadorToken;
         }
 
-        public async Task AddUsuarioAsync(UsuarioDTO dto)
+        public async Task<Usuario> AddUsuarioAsync(UsuarioDTO dto)
         {
             Usuario usuario = CreateUsuario(dto);
             _UsuarioRepository.Add(usuario);
             await _UsuarioRepository.SaveChangesAsync();
+            return usuario;
         }
 
         public async Task<GetAuthDTO> Autenticar(AuthDTO dto)
@@ -36,6 +37,22 @@ namespace alugueis_api.Services
                 return null;
             }
             return await _GerenciadorToken.GenerateTokenAsync(usuario);
+        }
+
+        public async Task RemoveUsuarioAsync(Usuario usuario)
+        {
+            _UsuarioRepository.Remove(usuario);
+            await _UsuarioRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdateUsuarioAsync(UsuarioDTO dto)
+        {
+            Usuario usuario = await _UsuarioRepository.GetAsync(dto.CodUsuario);
+            Usuario usuarioAtualizado = CreateUsuario(dto);
+            if (usuario == null) return;
+            if (usuario == null) return;
+            _UsuarioRepository.Update(usuario, usuarioAtualizado);
+            await _UsuarioRepository.SaveChangesAsync();
         }
 
         public Usuario CreateUsuario(UsuarioDTO dto)
@@ -53,20 +70,11 @@ namespace alugueis_api.Services
             return usuario;
         }
 
-        public async Task RemoveUsuarioAsync(Usuario usuario)
+        public async Task<bool> Existe(int codUsuario)
         {
-            _UsuarioRepository.Remove(usuario);
-            await _UsuarioRepository.SaveChangesAsync();
-        }
-
-        public async Task UpdateUsuarioAsync(UsuarioDTO dto)
-        {
-            Usuario usuario = await _UsuarioRepository.GetAsync(dto.CodUsuario);
-            Usuario usuarioAtualizado = CreateUsuario(dto);
-            if (usuario == null) return;
-            if (usuario == null) return;
-            _UsuarioRepository.Update(usuario, usuarioAtualizado);
-            await _UsuarioRepository.SaveChangesAsync();
+           
+            List<Usuario> usuarios = await _UsuarioRepository.GetUsuarios(codUsuario);
+            return usuarios.Count > 0;
         }
     }
 }

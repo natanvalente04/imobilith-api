@@ -1,21 +1,22 @@
-﻿using alugueis_api.Interfaces.Security;
-using alugueis_api.Models;
-using alugueis_api.Models.DTOs.Request;
-using alugueis_api.Models.DTOs.Response;
+﻿using Alugueis_API.Interfaces.Security;
+using Alugueis_API.Models;
+using Alugueis_API.Models.DTOs.Request;
+using Alugueis_API.Models.DTOs.Response;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 
-namespace alugueis_api.Security
+namespace Alugueis_API.Security
 {
     public class GerenciadorToken : IGerenciadorToken
     {
         private readonly AuthConfig _authConfig;
-        public GerenciadorToken(AuthConfig authConfig)
+        public GerenciadorToken(IOptions<AuthConfig> authConfig)
         {
-            _authConfig = authConfig;
+            _authConfig = authConfig.Value;
         }
 
         public Task<GetAuthDTO> GenerateTokenAsync(Usuario usuario)
@@ -27,10 +28,10 @@ namespace alugueis_api.Security
 
             var claims = new[]
             {
-            new Claim(ClaimTypes.Name, usuario.Email),
-            new Claim("role", "admin"),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+                new Claim(ClaimTypes.Name, usuario.Email),
+                new Claim("role", "admin"),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
 
             var token = new JwtSecurityToken(
                 issuer: "meusistema",

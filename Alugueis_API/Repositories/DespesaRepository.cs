@@ -1,10 +1,10 @@
-﻿using alugueis_api.Data;
-using alugueis_api.Interfaces;
-using alugueis_api.Models;
+﻿using Alugueis_API.Data;
+using Alugueis_API.Interfaces;
+using Alugueis_API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Writers;
 
-namespace alugueis_api.NovaPasta
+namespace Alugueis_API.NovaPasta
 {
     public class DespesaRepository : IBaseRepository<Despesa>
     {

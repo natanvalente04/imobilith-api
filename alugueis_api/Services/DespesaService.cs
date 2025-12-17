@@ -1,9 +1,9 @@
-﻿using alugueis_api.Interfaces;
-using alugueis_api.Models;
-using alugueis_api.NovaPasta;
-using alugueis_api.Repositories;
+﻿using Alugueis_API.Interfaces;
+using Alugueis_API.Models;
+using Alugueis_API.NovaPasta;
+using Alugueis_API.Repositories;
 
-namespace alugueis_api.Services
+namespace Alugueis_API.Services
 {
     public class DespesaService : IDespesaService
     {

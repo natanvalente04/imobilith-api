@@ -1,4 +1,4 @@
-﻿namespace alugueis_api.Models.DTOs.Request
+﻿namespace Alugueis_API.Models.DTOs.Request
 {
     public class AddDespesaAptoDTO
     {

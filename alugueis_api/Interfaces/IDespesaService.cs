@@ -1,6 +1,6 @@
-﻿using alugueis_api.Models;
+﻿using Alugueis_API.Models;
 
-namespace alugueis_api.Interfaces
+namespace Alugueis_API.Interfaces
 {
     public interface IDespesaService
     {

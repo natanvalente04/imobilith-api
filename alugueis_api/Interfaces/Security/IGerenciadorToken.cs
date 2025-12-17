@@ -1,7 +1,7 @@
-﻿using alugueis_api.Models;
-using alugueis_api.Models.DTOs.Response;
+﻿using Alugueis_API.Models;
+using Alugueis_API.Models.DTOs.Response;
 
-namespace alugueis_api.Interfaces.Security
+namespace Alugueis_API.Interfaces.Security
 {
     public interface IGerenciadorToken
     {

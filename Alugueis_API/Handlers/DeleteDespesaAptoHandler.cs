@@ -1,10 +1,10 @@
-﻿using alugueis_api.Data;
-using alugueis_api.Interfaces;
-using alugueis_api.Models;
-using alugueis_api.NovaPasta;
+﻿using Alugueis_API.Data;
+using Alugueis_API.Interfaces;
+using Alugueis_API.Models;
+using Alugueis_API.NovaPasta;
 using Microsoft.AspNetCore.Mvc;
 
-namespace alugueis_api.Handlers
+namespace Alugueis_API.Handlers
 {
     public class DeleteDespesaAptoHandler
     {

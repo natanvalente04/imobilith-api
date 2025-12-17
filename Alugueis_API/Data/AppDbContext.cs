@@ -1,7 +1,7 @@
-﻿using alugueis_api.Models;
+﻿using Alugueis_API.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace alugueis_api.Data
+namespace Alugueis_API.Data
 {
     public class AppDbContext : DbContext
     {
@@ -57,7 +57,7 @@ namespace alugueis_api.Data
             modelBuilder.Entity<Locacao>()
                 .HasOne(l => l.Locatario)
                 .WithMany(loc => loc.Locacoes)
-                .HasForeignKey(l => l.Cpf);
+                .HasForeignKey(l => l.codLocatario);
 
             modelBuilder.Entity<Locacao>()
                 .HasOne(l => l.Apto)

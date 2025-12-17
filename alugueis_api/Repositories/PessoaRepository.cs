@@ -1,9 +1,9 @@
-﻿using alugueis_api.Data;
-using alugueis_api.Interfaces;
-using alugueis_api.Models;
+﻿using Alugueis_API.Data;
+using Alugueis_API.Interfaces;
+using Alugueis_API.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace alugueis_api.Repositories
+namespace Alugueis_API.Repositories
 {
     public class PessoaRepository : IBaseRepository<Pessoa>
     {

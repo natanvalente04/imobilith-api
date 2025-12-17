@@ -1,4 +1,4 @@
-﻿using alugueis_api.Data;
+﻿using Alugueis_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Alugueis_API.Data
 {
-    public abstract class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         public AppDbContext CreateDbContext(string[] args)
         {

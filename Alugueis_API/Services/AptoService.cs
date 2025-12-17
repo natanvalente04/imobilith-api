@@ -1,6 +1,6 @@
-﻿using alugueis_api.Interfaces;
+﻿using Alugueis_API.Interfaces;
 
-namespace alugueis_api.Services
+namespace Alugueis_API.Services
 {
     public class AptoService : IAptoService
     {

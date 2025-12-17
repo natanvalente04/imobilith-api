@@ -1,12 +1,13 @@
-﻿using alugueis_api.Data;
-using alugueis_api.Models;
+﻿using Alugueis_API.Data;
+using Alugueis_API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 
-namespace alugueis_api.Controllers
+namespace Alugueis_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,6 +21,7 @@ namespace alugueis_api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddLocatario([FromBody] Locatario locatario)
         {
             _AppDbContext.Locatarios.Add(locatario);
@@ -27,12 +29,14 @@ namespace alugueis_api.Controllers
             return Ok(locatario);
         }
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Locatario>>> GetLocatarios()
         {
             List<Locatario> locatarios = await _AppDbContext.Locatarios.ToListAsync();
             return Ok(locatarios);
         }
-        [HttpGet("{cpf}")]
+        [HttpGet("{codLocatario}")]
+        [Authorize]
         public async Task<ActionResult<Locatario>> GetLocatarioById(int CodLocatario)
         {
             Locatario locatario = await _AppDbContext.Locatarios.FindAsync(CodLocatario);
@@ -40,6 +44,7 @@ namespace alugueis_api.Controllers
             return Ok(locatario);
         }
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult>UpdateLocatario([FromBody] Locatario locatarioAtualizado)
         {
             Locatario locatarioAtual = await _AppDbContext.Locatarios.FindAsync(locatarioAtualizado.CodLocatario);
@@ -49,6 +54,7 @@ namespace alugueis_api.Controllers
             return Ok(locatarioAtual);
         }
         [HttpDelete("{CodLocatario}")]
+        [Authorize]
         public async Task<IActionResult> DeleteLocatario(int CodLocatario)
         {
             Locatario locatario = await _AppDbContext.Locatarios.FindAsync(CodLocatario);

@@ -1,11 +1,12 @@
-﻿using alugueis_api.Models.DTOs;
-using alugueis_api.Models;
+﻿using Alugueis_API.Models;
+using Alugueis_API.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
-namespace alugueis_api.Interfaces
+namespace Alugueis_API.Interfaces
 {
     public interface IPessoaService
     {
-        Task AddPessoaAsync(PessoaDTO dto);
+        Task<Pessoa> AddPessoaAsync(PessoaDTO dto);
         Task RemovePessoaAsync(Pessoa pessoa);
         Task UpdatePessoaAsync(PessoaDTO dto);
     }

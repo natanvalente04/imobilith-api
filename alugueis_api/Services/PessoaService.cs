@@ -1,10 +1,11 @@
-﻿using alugueis_api.Interfaces;
-using alugueis_api.Models;
-using alugueis_api.Models.DTOs;
-using alugueis_api.Repositories;
+﻿using Alugueis_API.Interfaces;
+using Alugueis_API.Models;
+using Alugueis_API.Models.DTOs;
+using Alugueis_API.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using System.Security;
 
-namespace alugueis_api.Services
+namespace Alugueis_API.Services
 {
     public class PessoaService : IPessoaService
     {
@@ -14,11 +15,12 @@ namespace alugueis_api.Services
             _PessoaRepository = pessoaRepository;
         }
 
-        public async Task AddPessoaAsync(PessoaDTO dto)
+        public async Task<Pessoa> AddPessoaAsync(PessoaDTO dto)
         {
             Pessoa pessoa = CreatePessoa(dto);
             _PessoaRepository.Add(pessoa);
             await _PessoaRepository.SaveChangesAsync();
+            return pessoa;
         }
 
         public async Task RemovePessoaAsync(Pessoa pessoa)

@@ -1,4 +1,4 @@
-﻿namespace alugueis_api.Utilities
+﻿namespace Alugueis_API.Utilities
 {
     public class PasswordHelper
     {

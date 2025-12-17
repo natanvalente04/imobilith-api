@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace alugueis_api.Models
+namespace Alugueis_API.Models
 {
     public class DespesaRateio
     {

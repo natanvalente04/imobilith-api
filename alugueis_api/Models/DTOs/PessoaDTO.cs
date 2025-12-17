@@ -1,4 +1,4 @@
-﻿namespace alugueis_api.Models.DTOs
+﻿namespace Alugueis_API.Models.DTOs
 {
     public class PessoaDTO
     {
