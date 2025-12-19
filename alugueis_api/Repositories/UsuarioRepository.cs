@@ -65,5 +65,10 @@ namespace Alugueis_API.Repositories
 
             return usuarios;
         }
+
+        public async Task<bool> Exists()
+        {
+            return await _AppDbContext.Usuarios.AnyAsync();
+        }
     }
 }

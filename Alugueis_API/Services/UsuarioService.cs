@@ -72,9 +72,7 @@ namespace Alugueis_API.Services
 
         public async Task<bool> Existe(int codUsuario)
         {
-           
-            List<Usuario> usuarios = await _UsuarioRepository.GetUsuarios(codUsuario);
-            return usuarios.Count > 0;
+            return await _UsuarioRepository.Exists();
         }
     }
 }
