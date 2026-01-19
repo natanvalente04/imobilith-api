@@ -47,7 +47,9 @@ namespace Alugueis_API.Repositories
 
         public async Task<Usuario> GetByLoginAsync(string login)
         {
-            return await _AppDbContext.Usuarios.Where(usuario => usuario.Email == login).FirstAsync();
+            return await _AppDbContext.Usuarios
+            .Include(u => u.Pessoa)
+            .FirstOrDefaultAsync(u => u.Pessoa.Email == login);
         }
 
         public async Task<List<Usuario>> GetUsuarios(int? codUsuario = 0)

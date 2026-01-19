@@ -14,7 +14,7 @@ namespace alugueis_API.Handlers
             _UsuarioService = usuarioService;
         }
 
-        public async Task<IActionResult> Handle(UsuarioDTO dto)
+        public async Task<IActionResult> Handle(AddUsuarioDTO dto)
         {
             Usuario usuario = await _UsuarioService.AddUsuarioAsync(dto);
             return new OkObjectResult(usuario);

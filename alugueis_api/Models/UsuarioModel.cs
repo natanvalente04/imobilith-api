@@ -3,14 +3,13 @@
 
     public enum Role
     {
-        Admin = 1,
-        Locatario = 2
+        Admin,
+        Locatario
     }
     public class Usuario
     {
         public int CodUsuario {  get; set; }
         public int CodPessoa { get; set; }
-        public string Email { get; set; }
         public Role Role { get; set; }
         public byte[] SenhaHash { get; set; }
         public byte[] SenhaSalt { get; set; }

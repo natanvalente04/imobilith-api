@@ -20,7 +20,7 @@ namespace Alugueis_API.Services
             _GerenciadorToken = gerenciadorToken;
         }
 
-        public async Task<Usuario> AddUsuarioAsync(UsuarioDTO dto)
+        public async Task<Usuario> AddUsuarioAsync(AddUsuarioDTO dto)
         {
             Usuario usuario = CreateUsuario(dto);
             _UsuarioRepository.Add(usuario);
@@ -45,7 +45,7 @@ namespace Alugueis_API.Services
             await _UsuarioRepository.SaveChangesAsync();
         }
 
-        public async Task UpdateUsuarioAsync(UsuarioDTO dto)
+        public async Task UpdateUsuarioAsync(AddUsuarioDTO dto)
         {
             Usuario usuario = await _UsuarioRepository.GetAsync(dto.CodUsuario);
             Usuario usuarioAtualizado = CreateUsuario(dto);
@@ -55,7 +55,7 @@ namespace Alugueis_API.Services
             await _UsuarioRepository.SaveChangesAsync();
         }
 
-        public Usuario CreateUsuario(UsuarioDTO dto)
+        public Usuario CreateUsuario(AddUsuarioDTO dto)
         {
             PasswordHelper.CriarSenhaHash(dto.Senha, out byte[] Hash, out byte[] salt);
             Usuario usuario = new Usuario

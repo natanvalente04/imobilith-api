@@ -20,7 +20,7 @@ namespace Alugueis_API.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddUsuario([FromBody] UsuarioDTO dto)
+        public async Task<IActionResult> AddUsuario([FromBody] AddUsuarioDTO dto)
         {
            return await _AddUsuarioHandler.Handle(dto);
         }

@@ -8,9 +8,9 @@ namespace Alugueis_API.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<Usuario> AddUsuarioAsync(UsuarioDTO dto);
+        Task<Usuario> AddUsuarioAsync(AddUsuarioDTO dto);
         Task RemoveUsuarioAsync(Usuario usuario);
-        Task UpdateUsuarioAsync(UsuarioDTO dto);
+        Task UpdateUsuarioAsync(AddUsuarioDTO dto);
         Task<GetAuthDTO> Autenticar(AuthDTO dto);
         Task<bool> Existe(int codUsuario = 0);
     }

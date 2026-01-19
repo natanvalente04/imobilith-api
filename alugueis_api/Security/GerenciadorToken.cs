@@ -28,7 +28,7 @@ namespace Alugueis_API.Security
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, usuario.Email),
+                new Claim(ClaimTypes.Name, usuario.Pessoa.Email),
                 new Claim("role", "admin"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };

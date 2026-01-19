@@ -1,8 +1,9 @@
-﻿using Alugueis_API.Models.DTOs;
+﻿using alugueis_API.Handlers;
+using Alugueis_API.Handlers;
+using Alugueis_API.Models.DTOs;
 using Alugueis_API.Models.DTOs.Request;
 using Alugueis_API.Models.DTOs.Response;
 using Alugueis_API.Services;
-using Alugueis_API.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -14,9 +15,11 @@ namespace Alugueis_API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthHandler _AuthHandler;
-        public AuthController(AuthHandler authHandler)
+        private readonly RegisterLoginHandler _RegisterLoginHandler;
+        public AuthController(AuthHandler authHandler, RegisterLoginHandler registerLoginHandler)
         {
             _AuthHandler = authHandler;
+            _RegisterLoginHandler = registerLoginHandler;
         }
 
         [HttpPost]
@@ -25,6 +28,12 @@ namespace Alugueis_API.Controllers
             GetAuthDTO result =  await _AuthHandler.Handle(dto);
             if (result == null) return Unauthorized();
             return Ok(result);
+        }
+        [HttpPost("registrar")]
+        public async Task<IActionResult> Register([FromBody] RegisterDTO dto)
+        {
+
+            return await _RegisterLoginHandler.Handle(dto);
         }
     }
 }
