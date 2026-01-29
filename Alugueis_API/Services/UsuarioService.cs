@@ -30,8 +30,8 @@ namespace Alugueis_API.Services
 
         public async Task<GetAuthDTO> Autenticar(AuthDTO dto)
         {
-            Usuario usuario = await _UsuarioRepository.GetByLoginAsync(dto.login);
-            bool autenticou = PasswordHelper.VerificarSenha(dto.password, usuario.SenhaHash, usuario.SenhaSalt);
+            Usuario usuario = await _UsuarioRepository.GetByLoginAsync(dto.Login);
+            bool autenticou = PasswordHelper.VerificarSenha(dto.Senha, usuario.SenhaHash, usuario.SenhaSalt);
             if (!autenticou)
             {
                 return null;
