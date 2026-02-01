@@ -35,6 +35,7 @@ builder.Services.AddScoped<GetDespesaAptoHandler>();
 builder.Services.AddScoped<DeleteAptoHandler>();
 builder.Services.AddScoped<AuthHandler>();
 builder.Services.AddScoped<AddPessoaHandler>();
+builder.Services.AddScoped<GetPessoaHandler>();
 builder.Services.AddScoped<AddUsuarioHandler>();
 builder.Services.AddScoped<ExistsUsuarioHandler>();
 builder.Services.AddScoped<RegisterLoginHandler>();

@@ -2,6 +2,19 @@
 {
     public class PessoaDTO
     {
+        public PessoaDTO(int codPessoa, string nomePessoa, string cpf, string rg, string endereco, string telefone, string email, EstadoCivil estadoCivil, DateTime dataNascimento)
+        {
+            CodPessoa = codPessoa;
+            NomePessoa = nomePessoa;
+            Cpf = cpf;
+            Rg = rg;
+            Endereco = endereco;
+            Telefone = telefone;
+            Email = email;
+            EstadoCivil = estadoCivil;
+            DataNascimento = dataNascimento;
+        }
+
         public int CodPessoa { get; set; }
         public string NomePessoa { get; set; }
         public string Cpf { get; set; }

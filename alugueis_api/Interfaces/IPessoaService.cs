@@ -9,5 +9,6 @@ namespace Alugueis_API.Interfaces
         Task<Pessoa> AddPessoaAsync(PessoaDTO dto);
         Task RemovePessoaAsync(Pessoa pessoa);
         Task UpdatePessoaAsync(PessoaDTO dto);
+        Task<List<PessoaDTO>> GetPessoasAsync();
     }
 }

@@ -54,5 +54,30 @@ namespace Alugueis_API.Services
             };
             return pessoa;
         }
+
+        public async Task<List<PessoaDTO>> GetPessoasAsync()
+        {
+            List<Pessoa> pessoas = await _PessoaRepository.GetAllAsync();
+            return GetPessoaDTO(pessoas);
+        }
+        private List<PessoaDTO> GetPessoaDTO(List<Pessoa> pessoas)
+        {
+            List<PessoaDTO> pessoasDTO = new List<PessoaDTO>();
+            foreach(Pessoa pessoa in pessoas)
+            {
+                pessoasDTO.Add(new PessoaDTO(
+                    pessoa.CodPessoa,
+                    pessoa.NomePessoa,
+                    pessoa.Cpf,
+                    pessoa.Rg,
+                    pessoa.Endereco,
+                    pessoa.Telefone,
+                    pessoa.Email,
+                    pessoa.EstadoCivil,
+                    pessoa.DataNascimento
+                ));
+            }
+            return pessoasDTO;
+        }
     }
 }

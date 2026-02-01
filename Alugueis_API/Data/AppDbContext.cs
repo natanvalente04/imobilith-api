@@ -28,8 +28,6 @@ namespace Alugueis_API.Data
             modelBuilder.Entity<Pessoa>()
                 .HasKey(p => p.CodPessoa);
 
-
-
             modelBuilder.Entity<Usuario>()
                 .HasKey(u => u.CodUsuario);
 
