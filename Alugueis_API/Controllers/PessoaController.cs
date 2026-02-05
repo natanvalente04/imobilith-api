@@ -14,23 +14,39 @@ namespace Alugueis_API.Controllers
     {
         private readonly AddPessoaHandler _AddPessoaHandler;
         private readonly GetPessoaHandler _GetPessoaHandler;
-        public PessoaController(AddPessoaHandler addPessoaHandler, GetPessoaHandler getPessoaHandler)
+        private readonly UpdatePessoaHandler _UpdatePessoaHandler;
+        private readonly DeletePessoaHandler _DeletePessoaHandler;
+        public PessoaController(AddPessoaHandler addPessoaHandler, GetPessoaHandler getPessoaHandler, UpdatePessoaHandler updatePessoaHandler, DeletePessoaHandler deletePessoaHandler)
         {
             _AddPessoaHandler = addPessoaHandler;
             _GetPessoaHandler = getPessoaHandler;
+            _UpdatePessoaHandler = updatePessoaHandler;
+            _DeletePessoaHandler = deletePessoaHandler;
         }
 
         [HttpPost]
         [Authorize]
-        public Task<IActionResult> AddPessoa([FromBody] PessoaDTO dto)
+        public async Task<IActionResult> AddPessoa([FromBody] PessoaDTO dto)
         {
-            return _AddPessoaHandler.Handle(dto);
+            return await _AddPessoaHandler.Handle(dto);
         }
         [HttpGet]
         [Authorize]
-        public Task<ActionResult<List<PessoaDTO>>> GetPessoa()
+        public async Task<ActionResult<List<PessoaDTO>>> GetPessoas()
         {
-            return _GetPessoaHandler.Handle();
+            return await _GetPessoaHandler.Handle();
+        }
+        [HttpPut]
+        [Authorize]
+        public async Task<ActionResult> UpdatePessoa([FromBody] PessoaDTO dto)
+        {
+            return await _UpdatePessoaHandler.Handle(dto);
+        }
+        [HttpDelete("{codPessoa}")]
+        [Authorize]
+        public async Task<ActionResult> DeletePessoa(int codPessoa)
+        {
+            return await _DeletePessoaHandler.Handle(codPessoa);
         }
     }
 }

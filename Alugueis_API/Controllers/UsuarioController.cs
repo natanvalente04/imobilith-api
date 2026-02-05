@@ -25,6 +25,7 @@ namespace Alugueis_API.Controllers
            return await _AddUsuarioHandler.Handle(dto);
         }
 
+
         [HttpGet("existe")]
         public async Task<IActionResult> ExistsUsuario()
         {

@@ -38,27 +38,18 @@ namespace Alugueis_API.Services
             _PessoaRepository.Update(pessoa, pessoaAtualizada);
             await _PessoaRepository.SaveChangesAsync();
         }
-        public Pessoa CreatePessoa(PessoaDTO dto)
-        {
-            Pessoa pessoa = new Pessoa
-            {
-                CodPessoa = dto.CodPessoa,
-                NomePessoa = dto.NomePessoa,
-                Cpf = dto.Cpf,
-                Rg = dto.Rg,
-                Endereco = dto.Endereco,
-                Telefone = dto.Telefone,
-                Email = dto.Email,
-                EstadoCivil = dto.EstadoCivil,
-                DataNascimento = dto.DataNascimento,
-            };
-            return pessoa;
-        }
 
         public async Task<List<PessoaDTO>> GetPessoasAsync()
         {
             List<Pessoa> pessoas = await _PessoaRepository.GetAllAsync();
             return GetPessoaDTO(pessoas);
+        }
+        public async Task<ActionResult> RemovePessoaByIdAsync(int codPessoa)
+        {
+            Pessoa pessoa = await _PessoaRepository.GetAsync(codPessoa);
+            if (pessoa == null) return new OkObjectResult(null);
+            await RemovePessoaAsync(pessoa);
+            return new OkObjectResult(null);
         }
         private List<PessoaDTO> GetPessoaDTO(List<Pessoa> pessoas)
         {
@@ -78,6 +69,22 @@ namespace Alugueis_API.Services
                 ));
             }
             return pessoasDTO;
+        }
+        public Pessoa CreatePessoa(PessoaDTO dto)
+        {
+            Pessoa pessoa = new Pessoa
+            {
+                CodPessoa = dto.CodPessoa,
+                NomePessoa = dto.NomePessoa,
+                Cpf = dto.Cpf,
+                Rg = dto.Rg,
+                Endereco = dto.Endereco,
+                Telefone = dto.Telefone,
+                Email = dto.Email,
+                EstadoCivil = dto.EstadoCivil,
+                DataNascimento = dto.DataNascimento,
+            };
+            return pessoa;
         }
     }
 }
