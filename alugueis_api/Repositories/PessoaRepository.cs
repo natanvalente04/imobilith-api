@@ -42,5 +42,10 @@ namespace Alugueis_API.Repositories
         {
             _AppDbContext.Entry(entity).CurrentValues.SetValues(updatedEntity);
         }
+
+        public async Task BindLocatario(int codPessoa, int codLocatario)
+        {
+            await _AppDbContext.Pessoas.Where(p => p.CodPessoa == codPessoa).ExecuteUpdateAsync(setters => setters.SetProperty(p => p.CodLocatario, codLocatario));
+        }
     }
 }

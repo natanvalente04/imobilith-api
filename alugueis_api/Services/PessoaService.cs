@@ -3,7 +3,6 @@ using Alugueis_API.Models;
 using Alugueis_API.Models.DTOs;
 using Alugueis_API.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Security;
 
 namespace Alugueis_API.Services
 {
@@ -42,7 +41,7 @@ namespace Alugueis_API.Services
         public async Task<List<PessoaDTO>> GetPessoasAsync()
         {
             List<Pessoa> pessoas = await _PessoaRepository.GetAllAsync();
-            return GetPessoaDTO(pessoas);
+            return GetPessoasDTO(pessoas);
         }
         public async Task<ActionResult> RemovePessoaByIdAsync(int codPessoa)
         {
@@ -51,13 +50,20 @@ namespace Alugueis_API.Services
             await RemovePessoaAsync(pessoa);
             return new OkObjectResult(null);
         }
-        private List<PessoaDTO> GetPessoaDTO(List<Pessoa> pessoas)
+        private List<PessoaDTO> GetPessoasDTO(List<Pessoa> pessoas)
         {
             List<PessoaDTO> pessoasDTO = new List<PessoaDTO>();
             foreach(Pessoa pessoa in pessoas)
             {
-                pessoasDTO.Add(new PessoaDTO(
+                pessoasDTO.Add(GetPessoaDTO(pessoa));
+            }
+            return pessoasDTO;
+        }
+        private PessoaDTO GetPessoaDTO(Pessoa pessoa)
+        {
+            return new PessoaDTO(
                     pessoa.CodPessoa,
+                    pessoa.CodLocatario,
                     pessoa.NomePessoa,
                     pessoa.Cpf,
                     pessoa.Rg,
@@ -66,9 +72,7 @@ namespace Alugueis_API.Services
                     pessoa.Email,
                     pessoa.EstadoCivil,
                     pessoa.DataNascimento
-                ));
-            }
-            return pessoasDTO;
+                );
         }
         public Pessoa CreatePessoa(PessoaDTO dto)
         {
@@ -85,6 +89,17 @@ namespace Alugueis_API.Services
                 DataNascimento = dto.DataNascimento,
             };
             return pessoa;
+        }
+
+        public async Task<PessoaDTO> GetPessoaByIdAsync(int? codPessoa)
+        {
+            Pessoa pessoa = await _PessoaRepository.GetAsync(codPessoa);
+            return GetPessoaDTO(pessoa);
+        }
+
+        public async Task BindLocatarioAsync(int codPessoa, int codLocatario)
+        {
+            await _PessoaRepository.BindLocatario(codPessoa, codLocatario);
         }
     }
 }

@@ -11,5 +11,7 @@ namespace Alugueis_API.Interfaces
         Task<ActionResult> RemovePessoaByIdAsync(int codPessoa);
         Task UpdatePessoaAsync(PessoaDTO dto);
         Task<List<PessoaDTO>> GetPessoasAsync();
+        Task<PessoaDTO> GetPessoaByIdAsync(int? codPessoa);
+        Task BindLocatarioAsync(int codPessoa, int codLocatario);
     }
 }

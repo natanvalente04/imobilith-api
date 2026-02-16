@@ -6,7 +6,7 @@ using Alugueis_API.NovaPasta;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Alugueis_API.Handlers
+namespace Alugueis_API.Handlers.Despesa
 {
     public class UpdateDespesaAptoHandler
     {
@@ -19,7 +19,7 @@ namespace Alugueis_API.Handlers
 
         public async Task<IActionResult> Handle(AddDespesaAptoDTO dto)
         {
-            Despesa despesa = await _DespesaRepository.GetAsync(dto.CodDespesa);
+            Models.Despesa despesa = await _DespesaRepository.GetAsync(dto.CodDespesa);
             await _DespesaRepository.GetDespesaRateios(despesa);
             await _DespesaRepository.GetTipoDespesaDespesa(despesa);
             UpdateDespesa(despesa, dto);
@@ -36,14 +36,14 @@ namespace Alugueis_API.Handlers
             return new OkObjectResult(getDespesaAptoDTO);
         }
 
-        private void UpdateDespesa(Despesa despesa, AddDespesaAptoDTO dto)
+        private void UpdateDespesa(Models.Despesa despesa, AddDespesaAptoDTO dto)
         {
             despesa.VrlTotalDespesa = dto.VlrTotalDespesa;
             despesa.CompetenciaMes = dto.CompetenciaMes;
             UpdateDespesaRateios(despesa);
         }
 
-        private void UpdateDespesaRateios(Despesa despesa)
+        private void UpdateDespesaRateios(Models.Despesa despesa)
         {
             float valorRateio = despesa.VrlTotalDespesa / despesa.Rateios.Count;
             foreach (DespesaRateio rateio in despesa.Rateios)

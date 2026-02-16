@@ -5,9 +5,8 @@ using Alugueis_API.Models.DTOs.Response;
 using Alugueis_API.NovaPasta;
 using Alugueis_API.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace Alugueis_API.Handlers
+namespace Alugueis_API.Handlers.Despesa
 {
     public class AddDespesaAptoHandler
     {
@@ -23,9 +22,9 @@ namespace Alugueis_API.Handlers
 
         public async Task<IActionResult> Handle(AddDespesaAptoDTO dto) 
         {
-            Despesa despesa = AddDespesa(dto);
+            Models.Despesa despesa = AddDespesa(dto);
             await _DespesaRepository.SaveChangesAsync();
-            List<Apto> aptos = await _AptoRepository.GetAptos(dto.CodApto);
+            List<Models.Apto> aptos = await _AptoRepository.GetAptos(dto.CodApto);
             RateiaDespesa(despesa, aptos);
             await _DespesaRepository.SaveChangesAsync();
             despesa.TipoDespesa = await GetTipoDespesaById(despesa.CodTipoDespesa);
@@ -41,9 +40,9 @@ namespace Alugueis_API.Handlers
             return new OkObjectResult(getDespesaAptoDTO);
         }
 
-        private Despesa AddDespesa(AddDespesaAptoDTO dto)
+        private Models.Despesa AddDespesa(AddDespesaAptoDTO dto)
         {
-            Despesa despesa = new Despesa();
+            Models.Despesa despesa = new Models.Despesa();
             despesa.CodDespesa = dto.CodDespesa;
             despesa.CodTipoDespesa = dto.CodTipoDespesa;
             despesa.VrlTotalDespesa = dto.VlrTotalDespesa;
@@ -53,10 +52,10 @@ namespace Alugueis_API.Handlers
             return despesa;
         }
 
-        public void RateiaDespesa(Despesa despesa, List<Apto> aptos)
+        public void RateiaDespesa(Models.Despesa despesa, List<Models.Apto> aptos)
         {
             float valorRateio = despesa.VrlTotalDespesa / aptos.Count;
-            foreach (Apto apto in aptos)
+            foreach (Models.Apto apto in aptos)
             {
                 DespesaRateio despesaRateio = new DespesaRateio();
                 despesaRateio.CodApto = apto.CodApto;

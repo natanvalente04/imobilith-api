@@ -1,5 +1,4 @@
-﻿using alugueis_API.Handlers;
-using Alugueis_API.Handlers;
+﻿using Alugueis_API.Handlers.Pessoa;
 using Alugueis_API.Models;
 using Alugueis_API.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +34,12 @@ namespace Alugueis_API.Controllers
         public async Task<ActionResult<List<PessoaDTO>>> GetPessoas()
         {
             return await _GetPessoaHandler.Handle();
+        }
+        [HttpGet("{codPessoa}")]
+        [Authorize]
+        public async Task<ActionResult<PessoaDTO>> GetPessoaById(int? codPessoa)
+        {
+            return await _GetPessoaHandler.HandleById(codPessoa);
         }
         [HttpPut]
         [Authorize]

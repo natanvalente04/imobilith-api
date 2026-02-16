@@ -1,12 +1,8 @@
-﻿using alugueis_API.Handlers;
-using Alugueis_API.Handlers;
+﻿using Alugueis_API.Handlers;
 using Alugueis_API.Models.DTOs;
 using Alugueis_API.Models.DTOs.Request;
 using Alugueis_API.Models.DTOs.Response;
-using Alugueis_API.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Alugueis_API.Controllers
 {

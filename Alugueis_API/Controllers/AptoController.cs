@@ -1,5 +1,5 @@
 ﻿using Alugueis_API.Data;
-using Alugueis_API.Handlers;
+using Alugueis_API.Handlers.Apto;
 using Alugueis_API.Models;
 using Alugueis_API.Models.DTOs.Response;
 using Alugueis_API.Repositories;

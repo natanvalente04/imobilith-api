@@ -4,7 +4,7 @@ using Alugueis_API.Models;
 using Alugueis_API.NovaPasta;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers
+namespace Alugueis_API.Handlers.Despesa
 {
     public class DeleteDespesaAptoHandler
     {
@@ -17,7 +17,7 @@ namespace Alugueis_API.Handlers
 
         public async Task<IActionResult> Handle(int codDespesa)
         {
-            Despesa despesa = await _DespesaService.ObterDespesaCompletaAsync(codDespesa);
+            Models.Despesa despesa = await _DespesaService.ObterDespesaCompletaAsync(codDespesa);
             await _DespesaService.RemoveDespesaAsync(despesa);
             return new OkObjectResult(null);
         }

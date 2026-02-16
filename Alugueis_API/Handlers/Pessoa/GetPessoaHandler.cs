@@ -3,7 +3,7 @@ using Alugueis_API.Models.DTOs;
 using Alugueis_API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers
+namespace Alugueis_API.Handlers.Pessoa
 {
     public class GetPessoaHandler
     {
@@ -18,6 +18,11 @@ namespace Alugueis_API.Handlers
         {
             List<PessoaDTO> pessoasDTO = await _PessoaService.GetPessoasAsync();
             return new OkObjectResult(pessoasDTO);
+        }
+        public async Task<ActionResult<PessoaDTO>> HandleById(int? codPessoa)
+        {
+            PessoaDTO pessoaDTO = await _PessoaService.GetPessoaByIdAsync(codPessoa);
+            return pessoaDTO;
         }
     }
 }

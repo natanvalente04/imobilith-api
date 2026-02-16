@@ -1,11 +1,10 @@
 ﻿using Alugueis_API.Data;
+using Alugueis_API.Interfaces;
 using Alugueis_API.Models;
+using Alugueis_API.Models.DTOs.Request;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace Alugueis_API.Controllers
 {
@@ -14,18 +13,26 @@ namespace Alugueis_API.Controllers
     public class LocatarioController : ControllerBase
     {
         private readonly AppDbContext _AppDbContext;
+        private readonly IPessoaService _PessoaService;
 
-        public LocatarioController(AppDbContext appDbContext)
+        public LocatarioController(AppDbContext appDbContext, IPessoaService pessoaService)
         {
             _AppDbContext = appDbContext;
+            _PessoaService = pessoaService;
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddLocatario([FromBody] Locatario locatario)
+        public async Task<IActionResult> AddLocatario([FromBody] AddLocatarioDTO dto)
         {
+            Locatario locatario = new Locatario (
+                dto.CodLocatario,
+                dto.CodPessoa,
+                dto.TemPet,
+                dto.QtdDependentes); 
             _AppDbContext.Locatarios.Add(locatario);
             await _AppDbContext.SaveChangesAsync();
+            await _PessoaService.BindLocatarioAsync(dto.CodPessoa, locatario.CodLocatario);
             return Ok(locatario);
         }
         [HttpGet]
@@ -45,8 +52,13 @@ namespace Alugueis_API.Controllers
         }
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult>UpdateLocatario([FromBody] Locatario locatarioAtualizado)
+        public async Task<IActionResult>UpdateLocatario([FromBody] AddLocatarioDTO dto)
         {
+            Locatario locatarioAtualizado = new Locatario(
+                dto.CodLocatario,
+                dto.CodPessoa,
+                dto.TemPet,
+                dto.QtdDependentes);
             Locatario locatarioAtual = await _AppDbContext.Locatarios.FindAsync(locatarioAtualizado.CodLocatario);
             if (locatarioAtual == null) return NotFound();
             _AppDbContext.Entry(locatarioAtual).CurrentValues.SetValues(locatarioAtualizado);

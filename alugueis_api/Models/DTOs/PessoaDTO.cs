@@ -2,9 +2,10 @@
 {
     public class PessoaDTO
     {
-        public PessoaDTO(int codPessoa, string nomePessoa, string cpf, string rg, string endereco, string telefone, string email, EstadoCivil estadoCivil, DateTime dataNascimento)
+        public PessoaDTO(int codPessoa, int codLocatario, string nomePessoa, string cpf, string rg, string endereco, string telefone, string email, EstadoCivil estadoCivil, DateTime dataNascimento)
         {
             CodPessoa = codPessoa;
+            CodLocatario = codLocatario;
             NomePessoa = nomePessoa;
             Cpf = cpf;
             Rg = rg;
@@ -16,6 +17,7 @@
         }
 
         public int CodPessoa { get; set; }
+        public int CodLocatario { get; set; }
         public string NomePessoa { get; set; }
         public string Cpf { get; set; }
         public string Rg { get; set; }

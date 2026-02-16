@@ -22,6 +22,11 @@ namespace Alugueis_API.Data
             modelBuilder.Entity<Locatario>()
                 .HasKey(l => l.CodLocatario);
 
+            modelBuilder.Entity<Locatario>()
+                .HasOne(l => l.Pessoa)
+                .WithOne(p => p.Locatario)
+                .HasForeignKey<Locatario>(l => l.CodPessoa);
+
             modelBuilder.Entity<Apto>()
                 .HasKey(a => a.CodApto);
 
@@ -35,7 +40,6 @@ namespace Alugueis_API.Data
                 .HasOne(u => u.Pessoa)
                 .WithOne(p => p.Usuario)
                 .HasForeignKey<Usuario>(u => u.CodPessoa);
-
 
             modelBuilder.Entity<Apto>()
                 .Property(a => a.CodApto)

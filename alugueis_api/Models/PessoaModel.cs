@@ -10,6 +10,7 @@
     public class Pessoa
     {
         public int CodPessoa { get; set; }
+        public int CodLocatario { get; set; }
         public string NomePessoa { get; set; }
         public string Cpf { get; set; }
         public string Rg {  get; set; }
@@ -19,6 +20,7 @@
         public EstadoCivil EstadoCivil { get; set; }
         public DateTime DataNascimento { get; set; }
         public Usuario Usuario { get; set; }
+        public Locatario Locatario { get; set; }
 
     }
 }
