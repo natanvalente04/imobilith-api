@@ -51,7 +51,11 @@ namespace Alugueis_API.Services
             Usuario usuario = await _UsuarioRepository.GetAsync(dto.CodUsuario);
             Usuario usuarioAtualizado = CreateUsuario(dto);
             if (usuario == null) return;
-            if (usuario == null) return;
+            if (usuarioAtualizado.SenhaSalt == null && usuarioAtualizado.SenhaHash == null)
+            {
+                usuarioAtualizado.SenhaSalt = usuario.SenhaSalt;
+                usuarioAtualizado.SenhaHash = usuario.SenhaHash;
+            }
             _UsuarioRepository.Update(usuario, usuarioAtualizado);
             await _UsuarioRepository.SaveChangesAsync();
         }
@@ -113,6 +117,17 @@ namespace Alugueis_API.Services
         {
             Usuario usuario = await _UsuarioRepository.GetAsync(codUsuario);
             return GetUsuarioDTO(usuario);
+        }
+
+        public async Task<bool> ExisteByPessoaId(int codPessoa)
+        {
+            Usuario usuario = await _UsuarioRepository.GetUsuarioByPessoaIdAsync(codPessoa);
+            if (usuario == null) return false;
+            if (usuario.CodPessoa == codPessoa)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

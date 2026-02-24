@@ -16,5 +16,6 @@ namespace Alugueis_API.Interfaces
         Task<GetAuthDTO> Autenticar(AuthDTO dto);
         Task<bool> Existe(int codUsuario = 0);
         Task<GetUsuarioDTO> GetUsuarioById(int? codUsuario);
+        Task<bool> ExisteByPessoaId(int codPessoa);
     }
 }

@@ -16,5 +16,9 @@ namespace Alugueis_API.Handlers.Usuario
         {
             return await _UsuarioService.Existe();
         }
+        public async Task<bool> HandleById(int codPessoa)
+        {
+            return await _UsuarioService.ExisteByPessoaId(codPessoa);
+        }
     }
 }

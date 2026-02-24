@@ -9,6 +9,12 @@
         }
         public static void CriarSenhaHash(string senha, out byte[] hash, out byte[] salt)
         {
+            if (string.IsNullOrEmpty(senha))
+            {
+                salt = null;
+                hash = null;
+                return;
+            }
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
                 salt = hmac.Key;

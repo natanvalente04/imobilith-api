@@ -72,5 +72,11 @@ namespace Alugueis_API.Repositories
         {
             return await _AppDbContext.Usuarios.AnyAsync();
         }
+
+        public async Task<Usuario> GetUsuarioByPessoaIdAsync(int codPessoa) 
+        {
+            Usuario usuario = await _AppDbContext.Usuarios.FirstOrDefaultAsync(u => u.CodPessoa == codPessoa); ;
+            return usuario;
+        }
     }
 }

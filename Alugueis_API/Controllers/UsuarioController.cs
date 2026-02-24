@@ -4,6 +4,7 @@ using Alugueis_API.Models.DTOs.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
+using System.Text;
 
 namespace Alugueis_API.Controllers
 {
@@ -69,6 +70,13 @@ namespace Alugueis_API.Controllers
         public async Task<IActionResult> ExistsUsuario()
         {
             return Ok(await _ExistsUsuarioHandler.Handle());
+        }
+
+        [HttpGet("existe/{codPessoa}")]
+        [Authorize]
+        public async Task<IActionResult> existeUsuarioByPessoaId(int codPessoa)
+        {
+            return Ok(await _ExistsUsuarioHandler.HandleById(codPessoa));
         }
     }
 }

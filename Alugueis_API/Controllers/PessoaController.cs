@@ -43,7 +43,7 @@ namespace Alugueis_API.Controllers
         }
         [HttpPut]
         [Authorize]
-        public async Task<ActionResult> UpdatePessoa([FromBody] PessoaDTO dto)
+        public async Task<IActionResult> UpdatePessoa([FromBody] PessoaDTO dto)
         {
             return await _UpdatePessoaHandler.Handle(dto);
         }
