@@ -3,7 +3,7 @@ using Alugueis_API.Models;
 using Alugueis_API.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers.Pessoa
+namespace Alugueis_API.Handlers.PessoaHandlers
 {
     public class AddPessoaHandler
     {
@@ -16,7 +16,7 @@ namespace Alugueis_API.Handlers.Pessoa
 
         public async Task<IActionResult> Handle(PessoaDTO dto)
         {
-            Models.Pessoa pessoa =  await _pessoaService.AddPessoaAsync(dto);
+            Pessoa pessoa =  await _pessoaService.AddPessoaAsync(dto);
             return new OkObjectResult(pessoa);
         }
     }

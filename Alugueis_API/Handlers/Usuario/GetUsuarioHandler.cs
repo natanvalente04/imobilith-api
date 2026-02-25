@@ -3,7 +3,7 @@ using Alugueis_API.Models.DTOs.Response;
 using Alugueis_API.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers.Usuario
+namespace Alugueis_API.Handlers.UsuarioHandlers
 {
     public class GetUsuarioHandler
     {

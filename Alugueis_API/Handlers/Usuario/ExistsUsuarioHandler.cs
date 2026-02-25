@@ -1,7 +1,7 @@
 ﻿using Alugueis_API.Interfaces;
 using Alugueis_API.Repositories;
 
-namespace Alugueis_API.Handlers.Usuario
+namespace Alugueis_API.Handlers.UsuarioHandlers
 {
     public class ExistsUsuarioHandler
     {

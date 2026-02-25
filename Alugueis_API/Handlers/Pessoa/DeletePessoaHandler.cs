@@ -2,7 +2,7 @@
 using Alugueis_API.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers.Pessoa
+namespace Alugueis_API.Handlers.PessoaHandlers
 {
     public class DeletePessoaHandler
     {

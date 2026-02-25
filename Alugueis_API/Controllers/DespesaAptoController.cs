@@ -1,5 +1,5 @@
 ﻿using Alugueis_API.Data;
-using Alugueis_API.Handlers.Despesa;
+using Alugueis_API.Handlers.DespesaHandlers;
 using Alugueis_API.Models;
 using Alugueis_API.Models.DTOs.Request;
 using Alugueis_API.Models.DTOs.Response;

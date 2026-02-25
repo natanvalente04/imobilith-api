@@ -6,7 +6,7 @@ using Alugueis_API.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers.Apto
+namespace Alugueis_API.Handlers.AptoHandlers
 {
     public class DeleteAptoHandler
     {
@@ -23,7 +23,7 @@ namespace Alugueis_API.Handlers.Apto
         }
         public async Task<IActionResult> Handle(int codApto)
         {
-            Models.Apto apto = await _AptoRepository.GetAsync(codApto);
+            Apto apto = await _AptoRepository.GetAsync(codApto);
             if (apto == null) return new OkObjectResult(null);
             List<int> codDespesas = await _DespesaRepository.GetCodDespesasRecalcular(codApto);
             _AptoRepository.Remove(apto);

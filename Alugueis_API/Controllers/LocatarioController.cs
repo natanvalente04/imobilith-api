@@ -1,7 +1,9 @@
 ﻿using Alugueis_API.Data;
+using Alugueis_API.Handlers.LocatarioHandlers;
 using Alugueis_API.Interfaces;
 using Alugueis_API.Models;
 using Alugueis_API.Models.DTOs.Request;
+using Alugueis_API.Models.DTOs.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +16,13 @@ namespace Alugueis_API.Controllers
     {
         private readonly AppDbContext _AppDbContext;
         private readonly IPessoaService _PessoaService;
+        private readonly GetLocatarioHandler _GetLocatarioHandler;
 
-        public LocatarioController(AppDbContext appDbContext, IPessoaService pessoaService)
+        public LocatarioController(AppDbContext appDbContext, IPessoaService pessoaService, GetLocatarioHandler getLocatarioHandler)
         {
             _AppDbContext = appDbContext;
             _PessoaService = pessoaService;
+            _GetLocatarioHandler = getLocatarioHandler;
         }
 
         [HttpPost]
@@ -37,11 +41,12 @@ namespace Alugueis_API.Controllers
         }
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Locatario>>> GetLocatarios()
+        public async Task<ActionResult<List<GetLocatarioDTO>>> GetLocatarios()
         {
-            List<Locatario> locatarios = await _AppDbContext.Locatarios.ToListAsync();
-            return Ok(locatarios);
+            return await _GetLocatarioHandler.Handle();
         }
+
+
         [HttpGet("{codLocatario}")]
         [Authorize]
         public async Task<ActionResult<Locatario>> GetLocatarioById(int CodLocatario)

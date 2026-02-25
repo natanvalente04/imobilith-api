@@ -1,4 +1,4 @@
-﻿using Alugueis_API.Handlers.Pessoa;
+﻿using Alugueis_API.Handlers.PessoaHandlers;
 using Alugueis_API.Models;
 using Alugueis_API.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;

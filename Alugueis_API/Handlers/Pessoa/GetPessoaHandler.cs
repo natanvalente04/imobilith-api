@@ -3,7 +3,7 @@ using Alugueis_API.Models.DTOs;
 using Alugueis_API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers.Pessoa
+namespace Alugueis_API.Handlers.PessoaHandlers
 {
     public class GetPessoaHandler
     {

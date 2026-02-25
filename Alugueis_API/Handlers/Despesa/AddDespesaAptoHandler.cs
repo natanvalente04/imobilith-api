@@ -6,7 +6,7 @@ using Alugueis_API.NovaPasta;
 using Alugueis_API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers.Despesa
+namespace Alugueis_API.Handlers.DespesaHandlers
 {
     public class AddDespesaAptoHandler
     {
@@ -22,9 +22,9 @@ namespace Alugueis_API.Handlers.Despesa
 
         public async Task<IActionResult> Handle(AddDespesaAptoDTO dto) 
         {
-            Models.Despesa despesa = AddDespesa(dto);
+            Despesa despesa = AddDespesa(dto);
             await _DespesaRepository.SaveChangesAsync();
-            List<Models.Apto> aptos = await _AptoRepository.GetAptos(dto.CodApto);
+            List<Apto> aptos = await _AptoRepository.GetAptos(dto.CodApto);
             RateiaDespesa(despesa, aptos);
             await _DespesaRepository.SaveChangesAsync();
             despesa.TipoDespesa = await GetTipoDespesaById(despesa.CodTipoDespesa);
@@ -40,9 +40,9 @@ namespace Alugueis_API.Handlers.Despesa
             return new OkObjectResult(getDespesaAptoDTO);
         }
 
-        private Models.Despesa AddDespesa(AddDespesaAptoDTO dto)
+        private Despesa AddDespesa(AddDespesaAptoDTO dto)
         {
-            Models.Despesa despesa = new Models.Despesa();
+            Despesa despesa = new Despesa();
             despesa.CodDespesa = dto.CodDespesa;
             despesa.CodTipoDespesa = dto.CodTipoDespesa;
             despesa.VrlTotalDespesa = dto.VlrTotalDespesa;
@@ -52,10 +52,10 @@ namespace Alugueis_API.Handlers.Despesa
             return despesa;
         }
 
-        public void RateiaDespesa(Models.Despesa despesa, List<Models.Apto> aptos)
+        public void RateiaDespesa(Despesa despesa, List<Apto> aptos)
         {
             float valorRateio = despesa.VrlTotalDespesa / aptos.Count;
-            foreach (Models.Apto apto in aptos)
+            foreach (Apto apto in aptos)
             {
                 DespesaRateio despesaRateio = new DespesaRateio();
                 despesaRateio.CodApto = apto.CodApto;

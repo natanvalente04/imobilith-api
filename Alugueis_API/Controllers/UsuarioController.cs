@@ -1,4 +1,4 @@
-﻿using Alugueis_API.Handlers.Usuario;
+﻿using Alugueis_API.Handlers.UsuarioHandlers;
 using Alugueis_API.Models.DTOs;
 using Alugueis_API.Models.DTOs.Response;
 using Microsoft.AspNetCore.Authorization;

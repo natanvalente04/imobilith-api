@@ -1,8 +1,9 @@
 ﻿using Alugueis_API.Interfaces;
+using Alugueis_API.Models;
 using Alugueis_API.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Alugueis_API.Handlers.Usuario
+namespace Alugueis_API.Handlers.UsuarioHandlers
 {
     public class AddUsuarioHandler
     {
@@ -15,7 +16,7 @@ namespace Alugueis_API.Handlers.Usuario
 
         public async Task<IActionResult> Handle(AddUsuarioDTO dto)
         {
-            Models.Usuario usuario = await _UsuarioService.AddUsuarioAsync(dto);
+            Usuario usuario = await _UsuarioService.AddUsuarioAsync(dto);
             return new OkObjectResult(usuario);
         }
     }
